@@ -23,6 +23,7 @@ services:
             - sail
         depends_on:
             - mysql
+        entrypoint: ["php", "artisan", "schedule:work"]
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
