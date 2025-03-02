@@ -18,5 +18,13 @@ return [
             'page_size' => env('NEWSAPI_PAGE_SIZE', 50),
             'key' => env('NEWSAPI_KEY'),
         ],
+
+        'nyt' => [
+            'enabled' => env('NYT_ENABLED', true),
+            'name' => 'New York Times',
+            'class' => \App\Services\News\NytApiService::class,
+            'page_size' => env('NYT_PAGE_SIZE', 50),
+            'key' => env('NYT_KEY'),
+        ],
     ],
 ];

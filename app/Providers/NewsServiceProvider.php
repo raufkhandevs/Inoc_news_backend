@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\ArticleFetcherService;
 use App\Services\News\NewsApiService;
+use App\Services\News\NytApiService;
 
 class NewsServiceProvider extends ServiceProvider
 {
@@ -21,8 +22,13 @@ class NewsServiceProvider extends ServiceProvider
             if (config('news.services.newsapi.enabled', false)) {
                 $enabledServices[] = $app->make(NewsApiService::class);
             }
-            
-            // TODO: add more services here
+
+            // Add New York Times service if enabled
+            if (config('news.services.nyt.enabled', false)) {
+                $enabledServices[] = $app->make(NytApiService::class);
+            }
+
+            // Add other services here
 
             return new ArticleFetcherService($enabledServices);
         });
