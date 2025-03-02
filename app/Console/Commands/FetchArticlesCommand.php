@@ -11,6 +11,7 @@ class FetchArticlesCommand extends Command
 {
     /**
      * The name and signature of the console command.
+     * hours is set to 1 by default to fetch articles from the last hour
      *
      * @var string
      */

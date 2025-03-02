@@ -26,5 +26,13 @@ return [
             'page_size' => env('NYT_PAGE_SIZE', 50),
             'key' => env('NYT_KEY'),
         ],
+
+        'guardian' => [
+            'enabled' => env('GUARDIAN_ENABLED', true),
+            'name' => 'The Guardian',
+            'class' => \App\Services\News\GuardianApiService::class,
+            'page_size' => env('GUARDIAN_PAGE_SIZE', 50),
+            'key' => env('GUARDIAN_KEY'),
+        ],
     ],
 ];
