@@ -18,11 +18,6 @@ class Source extends Model
         'api_identifier',
         'api_type',
         'base_url',
-        'api_key',
-    ];
-
-    protected $casts = [
-        'api_key' => 'encrypted',
     ];
 
     public function articles(): HasMany

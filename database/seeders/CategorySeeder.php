@@ -19,10 +19,11 @@ class CategorySeeder extends Seeder
 
     private function createCategories()
     {
-        foreach (Category::DEFAULT_CATEGORIES as $category) {
+        foreach (Category::DEFAULT_CATEGORIES_WITH_TAGS as $category => $tags) {
             Category::create([
                 'name' => $category,
                 'slug' => Str::slug($category),
+                'tags' => $tags,
             ]);
         }
     }
