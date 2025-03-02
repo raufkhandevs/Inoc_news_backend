@@ -17,6 +17,20 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', LoginController::class);
 });
 
+Route::prefix('articles')->group(function () {
+    Route::get('/', [ArticleController::class, 'index']);
+});
+
+// Categories
+Route::prefix('categories')->group(function () {
+    Route::get('/', [CategoryController::class, 'index']);
+});
+
+// Authors
+Route::prefix('authors')->group(function () {
+    Route::get('/', [AuthorController::class, 'index']);
+});
+
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
     // Auth
@@ -26,19 +40,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('/preferences', [UserController::class, 'preferences']);
     });
 
-    // Categories
-    Route::prefix('categories')->group(function () {
-        Route::get('/', [CategoryController::class, 'index']);
-    });
-
-    // Authors
-    Route::prefix('authors')->group(function () {
-        Route::get('/', [AuthorController::class, 'index']);
-    });
-
     // Articles
     Route::prefix('articles')->group(function () {
-        Route::get('/', [ArticleController::class, 'index']);
         Route::get('/my-feeds', [ArticleController::class, 'myFeeds']);
     });
 });
