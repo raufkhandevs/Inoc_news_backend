@@ -17,6 +17,8 @@ class UserController extends BaseController
      */
     public function me(Request $request)
     {
-        return $this->successResponse(new UserResource($request->user()));
+        return $this->successResponse([
+            'user' => new UserResource($request->user()),
+        ]);
     }
 }

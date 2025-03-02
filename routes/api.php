@@ -17,10 +17,10 @@ Route::prefix('auth')->group(function () {
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
     // Auth
-    Route::post('/auth/logout', LogoutController::class);
-
-    // Users
-    Route::get('/user', [UserController::class, 'me']);
+    Route::prefix('auth')->group(function () {
+        Route::post('/logout', LogoutController::class);
+        Route::get('/me', [UserController::class, 'me']);
+    });
     
     // Other protected routes would go here
 });
