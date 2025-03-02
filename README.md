@@ -1,66 +1,184 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# INOC News Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern news aggregation platform built with Laravel, offering personalized news experiences through multiple news sources integration.
 
-## About Laravel
+## System Architecture
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Core Components
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### News Feed Integration
+- Multiple news source integrations (NewsAPI.org and others)
+- Unified article fetching interface
+- Duplicate detection and prevention
+- Scheduled article fetching with configurable intervals
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Data Models
+- Articles
+- Sources
+- Categories
+- Authors
+- Users
+- User Preferences
+- Article Metadata
 
-## Learning Laravel
+#### Service Layer
+- News Service Interfaces
+- Individual News Provider Implementations
+- Article Processing Service
+- User Preference Service
+- Feed Personalization Service
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Technical Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### News Aggregation
+- Multi-source news fetching
+- Intelligent duplicate detection
+- Configurable fetch intervals
+- Source-specific rate limiting
+- Error handling and retry mechanisms
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### User Management
+- Authentication and authorization
+- Preference management
+- Personalized feed generation
+- Source and category subscriptions
 
-## Laravel Sponsors
+#### Performance Optimization
+- Database indexing for fast queries
+- Caching layer for frequently accessed data
+- Batch processing for news fetching
+- Queued background jobs
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Technical Stack
 
-### Premium Partners
+- **Framework**: Laravel 12.x
+- **Database**: MySQL 8.0
+- **Cache**: Redis (planned)
+- **Task Scheduling**: Laravel Scheduler
+- **Queue System**: Laravel Queue with Database Driver
+- **Development Environment**: Docker (Laravel Sail)
+- **PHP Version**: 8.2
+- **Tools**: PHPMyAdmin
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Project Structure
+
+```
+app/
+├── Console/
+│   └── Commands/
+│       └── FetchNewsArticles.php
+├── Contracts/
+│   └── News/
+│       ├── NewsServiceInterface.php
+│       └── ArticleProcessorInterface.php
+├── Services/
+│   └── News/
+│       ├── NewsAPIService.php
+│       ├── OtherNewsService.php
+│       └── ArticleProcessor.php
+├── Models/
+│   ├── Article.php
+│   ├── Source.php
+│   ├── Category.php
+│   ├── Author.php
+│   └── UserPreference.php
+├── Http/
+│   ├── Controllers/
+│   └── Resources/
+└── Jobs/
+    └── ProcessNewsFeed.php
+```
+
+## Getting Started
+
+### Prerequisites
+- Docker Desktop
+- Composer
+- Git
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone [repository-url]
+cd inoc-news-backend
+```
+
+2. Install dependencies
+```bash
+composer install
+```
+
+3. Set up environment file
+```bash
+cp .env.example .env
+```
+
+4. Configure your news API keys in .env
+```
+NEWS_API_KEY=your_api_key
+# Other API keys as needed
+```
+
+5. Start Docker containers
+```bash
+./vendor/bin/sail up -d
+```
+
+6. Run migrations
+```bash
+./vendor/bin/sail artisan migrate
+```
+
+### Available Services
+
+- **Laravel Application**: http://localhost
+- **PHPMyAdmin**: http://localhost:8080
+- **MySQL**: Port 3306
+
+
+## Development
+
+### Key Commands
+
+- Start containers: `./vendor/bin/sail up -d`
+- Stop containers: `./vendor/bin/sail down`
+- Run migrations: `./vendor/bin/sail artisan migrate`
+- Run tests: `./vendor/bin/sail test`
+- Run scheduler: `./vendor/bin/sail artisan schedule:work`
+- Run queue worker: `./vendor/bin/sail artisan queue:work`
+
+### Code Style
+
+This project follows PSR-12 coding standards and Laravel best practices.
+
+## Architecture Decisions
+
+### News Fetching Strategy
+- Uses interface-based design for news service implementations
+- Implements duplicate detection using unique article identifiers and publish dates
+- Employs batch processing for efficient API usage
+- Uses queued jobs for background processing
+
+### Data Storage
+- Normalized database design for efficient storage
+- Indexes on frequently queried fields
+- Caching layer for popular articles and user preferences
+
+### Scalability Considerations
+- Queue-based processing for heavy tasks
+- Configurable fetch intervals per source
+- Rate limiting implementation
+- Error handling with retry mechanisms
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Please read our contributing guidelines before submitting pull requests.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Project Status
+
+🚧 Currently in active development 🚧
