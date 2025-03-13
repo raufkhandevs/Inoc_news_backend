@@ -37,7 +37,7 @@ class ArticleController extends BaseController
             }
         }
 
-        $articles = $articlesQuery->paginate(Article::PAGE_SIZE);
+        $articles = $articlesQuery->latest()->paginate(Article::PAGE_SIZE);
 
         return $this->successResponse([
             'articles' => ArticleResource::collection($articles),

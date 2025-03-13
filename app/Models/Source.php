@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Source extends Model
 {
-    const NEWS_API = 'news-api';
-
-    const API_TYPES = [
-        self::NEWS_API,
-    ];
-
     protected $fillable = [
         'name',
         'api_identifier',

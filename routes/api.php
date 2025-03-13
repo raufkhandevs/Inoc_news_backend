@@ -17,6 +17,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', LoginController::class);
 });
 
+// Articles
 Route::prefix('articles')->group(function () {
     Route::get('/', [ArticleController::class, 'index']);
 });
